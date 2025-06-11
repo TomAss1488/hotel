@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Date, Float, Enum, exists
 from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 import enum
 import datetime
 
@@ -102,13 +102,14 @@ class Payment(Base):
     method = Column(Enum(PaymentMethod))
 
 # Підключення до SQLite
-engine = create_engine('sqlite:///hotel_management.db')
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
+def main():
+    engine = create_engine('sqlite:///hotel_management.db.db')
+    Base.metadata.create_all(engine)
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
 # Функція ініціалізації готелю 
-def init_hotel():
+'''def init_hotel():
     exists_hotel = session.query(Hotel).first()
     if not exists_hotel:
         name = input("Введіть назву готелю: ")
@@ -1277,9 +1278,10 @@ def payment_menu(session):
         else:
             print("Невірний вибір.\n")
 
-# Головна функція
+# Головна функція'''
 if __name__ == '__main__':
-    print("--- Система управління готелем ---")
+    main()
+'''    print("--- Система управління готелем ---")
     init_hotel()
 while True:
         print("\n=== Головне меню ===")
