@@ -4,12 +4,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from typing import List, Optional
 from enum import Enum
-import lab4
+import hotel.Lab4
 import datetime
 
 Base = declarative_base()
 
-print(dir(lab4))
+print(dir(hotel.Lab4))
 
 app = FastAPI()
 
