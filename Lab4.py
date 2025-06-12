@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Date, Float, Enum, exists
 from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 import enum
 import datetime
 
@@ -103,13 +103,60 @@ class Payment(Base):
 
 # Підключення до SQLite
 def main():
-    engine = create_engine('sqlite:///hotel_management.db.db')
-    Base.metadata.create_all(engine)
+    # Підключення до бази
+    engine = create_engine('sqlite:///hotel_management.db')
     Session = sessionmaker(bind=engine)
     session = Session()
 
+    # Створення таблиць, якщо ще не створені
+    Base.metadata.create_all(engine)
+
+    print("--- Система управління готелем ---")
+    
+    while True:
+        print("\n=== Головне меню ===")
+        print("1. Ініціалізувати готель")
+        print("2. Меню гостей")
+        print("3. Меню типів кімнат")
+        print("4. Меню кімнат")
+        print("5. Меню посад")
+        print("6. Меню персоналу")
+        print("7. Меню послуг")
+        print("8. Меню бронювань")
+        print("9. Меню послуг гостей")
+        print("10. Меню оплат")
+        print("0. Вихід")
+        choice = input("Виберіть опцію: ")
+        if choice == "1":
+            init_hotel(session)
+        elif choice == "2":
+            guest_menu(session)
+        elif choice == "3":
+            room_type_menu(session)
+        elif choice == "4":
+            room_menu(session)
+        elif choice == "5":
+            position_menu(session)
+        elif choice == "6":
+            staff_menu(session)
+        elif choice == "7":
+            service_menu(session)
+        elif choice == "8":
+            booking_menu(session)
+        elif choice == "9":
+            guest_service_menu(session)
+        elif choice == "10":
+            payment_menu(session)
+        elif choice == "0":
+            print("Вихід з програми.")
+            break
+        else:
+            print("Невірний вибір.\n")
+    
+    session.close()
+
 # Функція ініціалізації готелю 
-'''def init_hotel():
+def init_hotel(session):
     exists_hotel = session.query(Hotel).first()
     if not exists_hotel:
         name = input("Введіть назву готелю: ")
@@ -1278,47 +1325,7 @@ def payment_menu(session):
         else:
             print("Невірний вибір.\n")
 
-# Головна функція'''
+# Головна функція
 if __name__ == '__main__':
     main()
-'''    print("--- Система управління готелем ---")
-    init_hotel()
-while True:
-        print("\n=== Головне меню ===")
-        print("1. Ініціалізувати готель")
-        print("2. Меню гостей")
-        print("3. Меню типів кімнат")
-        print("4. Меню кімнат")
-        print("5. Меню посад")
-        print("6. Меню персоналу")
-        print("7. Меню послуг")
-        print("8. Меню бронювань")
-        print("9. Меню послуг гостей")
-        print("10. Меню оплат")
-        print("0. Вихід")
-        choice = input("Виберіть опцію: ")
-        if choice == "1":
-            init_hotel()
-        elif choice == "2":
-            guest_menu(session)
-        elif choice == "3":
-            room_type_menu(session)
-        elif choice == "4":
-            room_menu(session)
-        elif choice == "5":
-            position_menu(session)
-        elif choice == "6":
-            staff_menu(session)
-        elif choice == "7":
-            service_menu(session)
-        elif choice == "8":
-            booking_menu(session)
-        elif choice == "9":
-            guest_service_menu(session)
-        elif choice == "10":
-            payment_menu(session)
-        elif choice == "0":
-            print("Вихід з програми.")
-            break
-        else:
-            print("Невірний вибір.\n")
+    
