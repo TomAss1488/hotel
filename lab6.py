@@ -952,5 +952,4 @@ elif menu == "Меню оплат":
                 st.experimental_rerun()
 
 
-# Закриття сесії
-# session.close() — Streamlit не потребує цього напряму, сесія живе з процесом
+
