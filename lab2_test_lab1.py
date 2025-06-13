@@ -1,6 +1,6 @@
 import pytest
 from datetime import datetime
-from lab1 import services, rooms
+from hotel.lab1 import services, rooms
 
 def calculate_total(booking, room):
     nights = (booking["check_out"] - booking["check_in"]).days
