@@ -40,6 +40,7 @@ services = {
 }
 bookings = []
 
+
 def show_main_menu():
     print("\n--- Головне меню ---")
     print("1. Перегляд гостей")
@@ -50,6 +51,7 @@ def show_main_menu():
     print("6. Персонал і посади")
     print("0. Вихід")
 
+
 def view_guests():
     print("\n--- Список гостей ---")
     if guests:
@@ -58,11 +60,13 @@ def view_guests():
     else:
         print("Гостей поки немає.")
 
+
 def view_rooms():
     print("\n--- Список номерів ---")
     for room, info in rooms.items():
         status = "Доступний" if info["available"] else "Зайнятий"
         print(f"Номер {room} ({info['type']} - {info['price']}$/ніч): {status}")
+
 
 def make_booking():
     print("\n--- Бронювання ---")
@@ -96,6 +100,7 @@ def make_booking():
     except ValueError:
         print("Некоректне введення дати або номера.")
 
+
 def payment_menu():
     print("\n--- Оплата ---")
     name = input("Ім'я гостя: ").strip()
@@ -128,11 +133,12 @@ def payment_menu():
     except ValueError:
         print("Некоректне введення.")
 
+
 def show_services():
     print("\n--- Послуги ---")
     for i, (name, price) in enumerate(services.items(), 1):
         print(f"{i}. {name} — {price}$")
-    
+
     guest_name = input("Ім'я гостя: ").strip()
     guest_booking = next((b for b in bookings if b["name"] == guest_name and not b["paid"]), None)
 
@@ -153,10 +159,12 @@ def show_services():
     except ValueError:
         print("Некоректне введення.")
 
+
 def show_staff():
     print("\n--- Персонал ---")
     for member in staff:
         print(f"{member['name']} - {member['position']}")
+
 
 def main():
     while True:
@@ -179,6 +187,7 @@ def main():
             sys.exit()
         else:
             print("Невідомий вибір, спробуйте ще раз.")
+
 
 if __name__ == "__main__":
     main()
